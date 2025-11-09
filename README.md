@@ -2,8 +2,24 @@
 # tx-commitment-soundness
 
 ## Overview
-This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereum transaction. It fetches the transaction receipt from an RPC endpoint and derives a commitment that binds chainId, txHash, blockNumber, status, and gasUsed. This mirrors how Aztec-style or rollup systems commit to facts so they cannot be forged without detection. Optionally, you can cross-check the same transaction against a second RPC to detect inconsistencies.
-
++This tool derives a deterministic commitment from on-chain transaction facts
++to help spot inconsistencies across providers.
++
++**Commitment fields** (conceptually):
++- `chainId`, `txHash`, `blockNumber`, `status`, `gasUsed`
++
++> If two honest providers return different commitments for the same tx,
++> something is off and deserves investigation (soundness check).
++
++## Quickstart
++```bash
++pip install web3
++export RPC_URL="https://mainnet.infura.io/v3/<KEY>"
++# optional second provider for cross-checks
++# export RPC_URL_2="https://rpc.ankr.com/eth"
++python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
++```
++
 ## Files
 - app.py — CLI tool that:
   - Connects to an Ethereum-compatible RPC
