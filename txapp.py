@@ -55,6 +55,11 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
     return "0x" + Web3.keccak(payload).hex()
 
 def fetch_receipt_bundle(w3: Web3, txh: str):
+      # ✅ New check for pending transaction
+    tx_data = w3.eth.get_transaction(txh)
+    if tx_data and tx_data.blockNumber is None:
+        print("⏳ Transaction is still pending and not yet included in a block.")
+        sys.exit(0)
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
 tx = safe_rpc_call(w3.eth.get_transaction, txh)
