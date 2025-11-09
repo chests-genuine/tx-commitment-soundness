@@ -25,6 +25,32 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 
 ## Usage
    python app.py <tx_hash>
+   
+## Example Output
+When you run:
+python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+You’ll see something similar to:
+- 🌐 Connected to Ethereum Mainnet (chainId 1)
+- 🔗 Tx: 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+- 👤 From: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+- 🎯 To: 0x00000000219ab540356cBB839Cbe05303d7705Fa
+- 🔢 Block: 18945023
+- 🕒 Block timestamp: 2025-11-09 14:26:13 UTC
+- 📦 Status: 1 GasUsed: 64231
+- ⛽ Gas Price: 25.31 Gwei
+- 💰 Total Fee: 0.001627 ETH
+- ✅ Confirmations: 8
+- 🧩 Soundness Commitment: 0x7f8d5e65c23a1178a4eb40a2195f22c8b9a74cf909ab8c5e4af6e3e1e8fa8da2
+- ⏱️ Elapsed: 2.45s
+
+If you’ve configured two RPCs (`RPC_URL` and `RPC_URL_2`), you’ll also see:
+— Cross-check —
+Chain IDs match: ✅
+Block numbers match: ✅
+Status matches: ✅
+GasUsed matches: ✅
+Commitments match: ✅
+🔒 Soundness confirmed across providers.
 
 ## Examples
    python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
