@@ -47,3 +47,10 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 - If your provider is non-archival and the tx is old, you might need a different RPC
 - This is not a zero-knowledge proof; it is a commitment primitive you could later verify inside a ZK circuit for privacy-preserving checks
 - For CI, set both RPC_URL and RPC_URL_2 to independent providers and assert that commitments match
+- If your transaction is old (many thousands of blocks behind the current head), some public RPC providers might not return full data unless they are archival nodes.
+- The commitment is chain-specific — the same transaction hash on different chains will yield a different commitment.
+- The tool performs no private key operations or state changes; it is entirely read-only and safe to run from any environment.
+- You can extend this script to export results as JSON or CSV for use in automated audits.
+- To increase reliability, consider adding a small retry delay (for transient RPC errors) or comparing results from at least two providers.
+- For full determinism across runs, use the same RPC endpoints, block tags, and Python version (hashes can differ slightly between keccak implementations if altered).
+
