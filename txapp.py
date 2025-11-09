@@ -67,6 +67,10 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
+# ✅ New lines — show confirmations
+latest_block = w3.eth.block_number
+confirmations = max(0, latest_block - block_number)
+print(f"✅ Confirmations: {confirmations}")
     return {
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
