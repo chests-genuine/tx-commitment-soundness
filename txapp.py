@@ -55,6 +55,9 @@ def fetch_receipt_bundle(w3: Web3, txh: str):
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
+    # ✅ New lines to show block timestamp
+block = w3.eth.get_block(rcpt.blockNumber)
+print(f"🕒 Block timestamp: {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(block.timestamp))} UTC")
     return {
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
