@@ -2,7 +2,7 @@
 # tx-commitment-soundness
 
 ## Overview
-This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereum transaction. It fetches the transaction receipt from an RPC endpoint and derives a commitment that binds chainId, txHash, blockNumber, status, and gasUsed. This mirrors how Aztec-style or rollup systems commit to facts so they cannot be forged without detection. Optionally, you can cross-check the same transaction against a second RPC to detect inconsistencies.
+This lightweight tool checks the **soundness** of an Ethereum transaction by fetching its receipt, computing a deterministic commitment, and (optionally) cross-verifying it across providers.
 
 ## Files
 - app.py — CLI tool that:
@@ -24,7 +24,9 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
    - Optional secondary for cross-checks: set RPC_URL_2
 
 ## Usage
-   python app.py <tx_hash>
+- python app.py <tx_hash>
+- Or specify an alternate RPC and verify across two endpoints:
+- python app.py --rpc https://rpc.xyz.io --rpc2 https://rpc.other.io <tx_hash>
 
 ## Examples
    python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -46,4 +48,6 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 - Works on Mainnet, Sepolia, and other EVM chains; the commitment is deterministic for the same chain and receipt
 - If your provider is non-archival and the tx is old, you might need a different RPC
 - This is not a zero-knowledge proof; it is a commitment primitive you could later verify inside a ZK circuit for privacy-preserving checks
-- For CI, set both RPC_URL and RPC_URL_2 to independent providers and assert that commitments match
+- For CI / monitoring automation:
+- Use two independent RPC endpoints (`RPC_URL` and `RPC_URL_2`) and assert matching commitments.
+- Exit codes: `0` = success, `1` = bad input or setup, `2` = lookup/fetch error.
