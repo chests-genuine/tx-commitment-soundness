@@ -67,6 +67,10 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
+# ✅ New lines: show gas price
+gas_price = getattr(rcpt, "effectiveGasPrice", None) or getattr(rcpt, "gasPrice", None)
+if gas_price is not None:
+    print(f"⛽ Gas Price: {Web3.from_wei(gas_price, 'gwei'):.2f} Gwei")
     return {
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
