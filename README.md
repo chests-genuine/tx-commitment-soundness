@@ -47,3 +47,5 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 - If your provider is non-archival and the tx is old, you might need a different RPC
 - This is not a zero-knowledge proof; it is a commitment primitive you could later verify inside a ZK circuit for privacy-preserving checks
 - For CI, set both RPC_URL and RPC_URL_2 to independent providers and assert that commitments match
+- Set `RPC_URL` and (optionally) `RPC_URL_2` to independent RPC providers and assert commitments match.
+- The script exits with codes: `0` = success, `1` = invalid input/setup, `2` = fetch/lookup error.
