@@ -67,6 +67,11 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
+# ✅ New: show total fee in ETH
+gas_price = getattr(rcpt, "effectiveGasPrice", None) or getattr(rcpt, "gasPrice", None)
+if gas_price is not None:
+    total_fee_eth = Web3.from_wei(gas_price * gas_used, "ether")
+    print(f"💰 Total Fee: {total_fee_eth:.6f} ETH")
     return {
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
