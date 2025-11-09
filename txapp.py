@@ -46,6 +46,10 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
 def fetch_receipt_bundle(w3: Web3, txh: str):
     try:
         rcpt = w3.eth.get_transaction_receipt(txh)
+        # ✅ New lines to show sender and receiver
+tx = w3.eth.get_transaction(txh)
+print(f"👤 From: {tx['from']}")
+print(f"🎯 To: {tx['to']}")
     except Exception as e:
         print(f"❌ Failed to fetch receipt: {e}")
         sys.exit(2)
