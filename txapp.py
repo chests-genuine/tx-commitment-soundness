@@ -3,7 +3,18 @@ import os
 import sys
 import time
 from web3 import Web3
-
+# new lines
+def safe_rpc_call(func, *args, retries=3, delay=1):
+    """Retry wrapper for transient RPC errors."""
+    for attempt in range(1, retries + 1):
+        try:
+            return func(*args)
+        except Exception as e:
+            print(f"⚠️  RPC call failed (attempt {attempt}/{retries}): {e}")
+            time.sleep(delay)
+    print("❌ All RPC retries failed.")
+    sys.exit(2)
+    
 # Config: set via env or edit directly
 RPC_URL = os.getenv("RPC_URL", "https://mainnet.infura.io/v3/your_api_key")
 RPC_URL_2 = os.getenv("RPC_URL_2")  # optional second provider for cross-checks
@@ -45,7 +56,8 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
 
 def fetch_receipt_bundle(w3: Web3, txh: str):
     try:
-        rcpt = w3.eth.get_transaction_receipt(txh)
+        rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
+tx = safe_rpc_call(w3.eth.get_transaction, txh)
     except Exception as e:
         print(f"❌ Failed to fetch receipt: {e}")
         sys.exit(2)
