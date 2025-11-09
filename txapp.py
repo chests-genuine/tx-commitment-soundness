@@ -97,6 +97,12 @@ def main():
     w3 = w3_connect(RPC_URL)
     primary = fetch_receipt_bundle(w3, tx_hash)
     print_bundle("PRIMARY", primary)
+    # ✅ New freshness check
+MAX_STALE_BLOCKS = 50
+current_block = w3.eth.block_number
+if primary["block_number"] + MAX_STALE_BLOCKS < current_block:
+    print(f"⚠️  Transaction is older than {MAX_STALE_BLOCKS} blocks (block {primary['block_number']} vs current {current_block}) — results may be stale.")
+
 
     if RPC_URL_2:
         w3b = w3_connect(RPC_URL_2)
