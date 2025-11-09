@@ -19,9 +19,10 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 ## Install
 1) Install dependencies:
    pip install web3
-2) Configure RPC:
-   - Primary: set environment variable RPC_URL, or edit app.py and replace your_api_key
-   - Optional secondary for cross-checks: set RPC_URL_2
+3) Configure RPC endpoint:
+- Set environment variable `RPC_URL`, or
+- Edit the `RPC_URL` constant in `app.py`
+- For cross-verification, also set `RPC_URL_2` to a second independent provider.
 
 ## Usage
    python app.py <tx_hash>
