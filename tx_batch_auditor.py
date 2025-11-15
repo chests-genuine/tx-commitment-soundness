@@ -42,6 +42,11 @@ def parse_args() -> argparse.Namespace:
         description="Batch soundness checker for multiple Ethereum transaction receipts.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "--show-gas-hex",
+        action="store_true",
+        help="Show gasUsed also in hex form in human output",
+    )
     p.add_argument(
         "--rpc1",
         default=DEFAULT_RPC_1,
@@ -268,10 +273,14 @@ def main() -> None:
             continue
 
         p = res["primary"]
+              gas_used_str = str(p["gasUsed"])
+        if args.show_gas_hex:
+            gas_used_str += f" (0x{p['gasUsed']:x})"
         print(
             f"   🧱 block={p['blockNumber']}  status={p['status']}  "
-            f"gasUsed={p['gasUsed']}  chainId={p['chainId']}"
+            f"gasUsed={gas_used_str}  chainId={p['chainId']}"
         )
+
         print(f"   🔐 commitment (primary): {p['commitment']}")
 
         if w3_secondary is not None:
