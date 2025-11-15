@@ -341,7 +341,8 @@ def main() -> int:
             f"{warn_icon}{mismatch_count} transaction(s) had cross-provider mismatches.",
             file=sys.stderr,
         )
-        return 2 if w3b is not None else 0
+                return 2 if w3b is not None else 1
+
 
     # Non-zero if we had serious problems
     if fail_count > 0 or not_found_count > 0 or invalid_count > 0:
