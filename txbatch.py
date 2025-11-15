@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+"""
+Batch-check tx commitment soundness for multiple transactions, with optional
+cross-RPC comparison of commitments.
+"""
+
 import argparse
 import os
 import sys
