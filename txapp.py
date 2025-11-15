@@ -67,9 +67,10 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
+      chain_id = safe_rpc_call(lambda: w3.eth.chain_id)
     return {
-        "chain_id": w3.eth.chain_id,
-        "network": network_name(w3.eth.chain_id),
+        "chain_id": chain_id,
+        "network": network_name(chain_id),
         "tx_hash": txh,
         "block_number": block_number,
         "status": status,
