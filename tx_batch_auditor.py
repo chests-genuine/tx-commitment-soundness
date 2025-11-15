@@ -228,23 +228,24 @@ def main() -> None:
     elapsed = round(time.time() - t0, 3)
 
     if args.json:
+                ok = sum(1 for r in results if r.get("match") is True)
+        mismatch = sum(1 for r in results if r.get("match") is False)
+        primary_err = sum(1 for r in results if r.get("errorPrimary"))
+        secondary_err = sum(1 for r in results if r.get("errorSecondary"))
+
         payload = {
-            "primary": {
-                "rpc": args.rpc1,
-                "chainId": int(w3_primary.eth.chain_id),
-                "network": network_name(int(w3_primary.eth.chain_id)),
-            },
-            "secondary": (
-                {
-                    "rpc": args.rpc2,
-                    "chainId": int(w3_secondary.eth.chain_id),  # type: ignore[arg-type]
-                    "network": network_name(int(w3_secondary.eth.chain_id)),  # type: ignore[arg-type]
-                }
-                if w3_secondary is not None
-                else None
-            ),
+            "primary": {...},
+            "secondary": ...,
             "elapsedSec": elapsed,
+            "summary": {
+                "total": len(results),
+                "matches": ok,
+                "mismatches": mismatch,
+                "primaryErrors": primary_err,
+                "secondaryErrors": secondary_err,
+            },
             "results": results,
+        
         }
         print(json.dumps(payload, indent=2, sort_keys=True))
         return
