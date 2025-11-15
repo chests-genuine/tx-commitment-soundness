@@ -26,6 +26,8 @@ NETWORKS = {
     137: "Polygon",
     42161: "Arbitrum One",
 }
+    chain_id = safe_rpc_call(lambda: w3.eth.chain_id)
+    print(f"Connected to primary RPC {RPC_URL} on {network_name(chain_id)} (chainId {chain_id})")
 
 def network_name(chain_id: int) -> str:
     return NETWORKS.get(chain_id, f"Unknown (chain ID {chain_id})")
