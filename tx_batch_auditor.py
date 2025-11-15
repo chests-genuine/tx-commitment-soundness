@@ -217,6 +217,15 @@ def main() -> None:
     w3_secondary: Optional[Web3] = None
     if args.rpc2:
         w3_secondary = connect(args.rpc2, "secondary")
+            if w3_secondary is not None:
+        if int(w3_primary.eth.chain_id) != int(w3_secondary.eth.chain_id):
+            print(
+                f"❌ chainId mismatch between primary ({w3_primary.eth.chain_id}) "
+                f"and secondary ({w3_secondary.eth.chain_id}) RPCs.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
 
     t0 = time.time()
     results: List[Dict[str, Any]] = []
