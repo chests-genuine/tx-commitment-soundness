@@ -291,3 +291,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n🛑 Aborted by user.", file=sys.stderr)
         sys.exit(1)
+    except KeyboardInterrupt:
+        print("\n🛑 Aborted by user.", file=sys.stderr)
+        sys.exit(1)
