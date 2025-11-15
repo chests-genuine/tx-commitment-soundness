@@ -42,6 +42,8 @@ def parse_args() -> argparse.Namespace:
         description="Batch soundness checker for multiple Ethereum transaction receipts.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+
+
     p.add_argument(
         "--rpc1",
         default=DEFAULT_RPC_1,
