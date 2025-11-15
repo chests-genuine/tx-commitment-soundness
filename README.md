@@ -24,7 +24,12 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
    - Optional secondary for cross-checks: set RPC_URL_2
 
 ## Usage
-   python app.py <tx_hash>
+
+Run the tool against a single transaction hash:
+
+'RPC_URL=https://mainnet.infura.io/v3/YOUR_KEY \'
+'python txapp.py 0xYOUR_TX_HASH_HERE'
+
 
 ## Examples
    python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
