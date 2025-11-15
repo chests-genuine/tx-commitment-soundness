@@ -221,8 +221,9 @@ def main() -> None:
     t0 = time.time()
     results: List[Dict[str, Any]] = []
 
-    for h in hashes:
+       for idx, h in enumerate(hashes, start=1):
         res = audit_tx(h, w3_primary, w3_secondary)
+        res["index"] = idx
         results.append(res)
 
     elapsed = round(time.time() - t0, 3)
@@ -261,8 +262,9 @@ def main() -> None:
         )
     print(f"🧮 Auditing {len(results)} transaction(s) in {elapsed}s\n")
 
-    for res in results:
-        print(f"🔗 {res['txHash']}")
+        for res in results:
+        idx = res.get("index", "?")
+        print(f"[{idx}/{len(results)}] 🔗 {res['txHash']}")
         if res["errorPrimary"]:
             print(f"   ❌ Primary error: {res['errorPrimary']}")
             continue
