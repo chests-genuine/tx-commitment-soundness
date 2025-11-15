@@ -7,6 +7,7 @@ from typing import List, Dict, Any, Optional
 
 from web3 import Web3
 
+DEFAULT_MAX = int(os.getenv("TX_AUDIT_MAX", "0"))
 DEFAULT_RPC_1 = os.getenv("RPC_URL", "https://mainnet.infura.io/v3/your_api_key")
 DEFAULT_RPC_2 = os.getenv("RPC_URL_2")
 
@@ -47,6 +48,7 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_RPC_1,
         help="Primary RPC URL (default from RPC_URL env)",
     )
+    
     p.add_argument(
         "--rpc2",
         default=DEFAULT_RPC_2,
@@ -61,7 +63,7 @@ def parse_args() -> argparse.Namespace:
         nargs="*",
         help="Transaction hashes (0x...) to audit, if --file not used",
     )
-    p.add_argument(
+      p.add_argument(
         "--max",
         type=int,
         default=0,
