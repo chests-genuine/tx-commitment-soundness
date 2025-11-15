@@ -106,6 +106,9 @@ def main():
     w3 = w3_connect(RPC_URL)
     primary = fetch_receipt_bundle(w3, tx_hash)
     print_bundle("PRIMARY", primary)
+        if not RPC_URL_2:
+        print("ℹ️  Set RPC_URL_2 to enable cross-provider soundness checks.")
+
 
     if RPC_URL_2:
         w3b = w3_connect(RPC_URL_2)
