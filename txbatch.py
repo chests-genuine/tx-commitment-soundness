@@ -234,6 +234,8 @@ def main() -> int:
         f"{ok_icon} Primary: {network_name(primary_chain_id)} "
         f"(chainId {primary_chain_id})"
     )
+    if not RPC_URL_2:
+        print("ℹ️  Set RPC_URL_2 to enable cross-provider commitment checks.")
 
     # Optional secondary
     w3b: Optional[Web3] = None
