@@ -31,6 +31,8 @@ def network_name(chain_id: int) -> str:
     return NETWORKS.get(chain_id, f"Unknown (chain ID {chain_id})")
 
 def w3_connect(url: str) -> Web3:
+    """Create a Web3 HTTP provider and exit if the connection fails."""
+    ...
     w3 = Web3(Web3.HTTPProvider(url, request_kwargs={"timeout": 30}))
     if not w3.is_connected():
         print(f"❌ RPC connection failed: {url}")
@@ -44,6 +46,7 @@ def parse_tx_hash(h: str) -> str:
     return h
 
 def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status: int, gas_used: int) -> str:
+      """Compute a keccak commitment over (chainId, txHash, blockNumber, status, gasUsed)."""
     # keccak(chainId[8] || txHash[32] || blockNumber[8] || status[1] || gasUsed[8])
     payload = (
         chain_id.to_bytes(8, "big")
@@ -55,6 +58,7 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
     return "0x" + Web3.keccak(payload).hex()
 
 def fetch_receipt_bundle(w3: Web3, txh: str):
+    """Fetch tx + receipt and build a minimal soundness bundle."""
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
 tx = safe_rpc_call(w3.eth.get_transaction, txh)
