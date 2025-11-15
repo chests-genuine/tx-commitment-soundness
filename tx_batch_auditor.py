@@ -42,6 +42,12 @@ def parse_args() -> argparse.Namespace:
         description="Batch soundness checker for multiple Ethereum transaction receipts.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "--csv",
+        action="store_true",
+        help="Output CSV instead of text or JSON",
+    )
+
     p.add_argument(
         "--rpc1",
         default=DEFAULT_RPC_1,
@@ -247,6 +253,22 @@ def main() -> None:
             "results": results,
         }
         print(json.dumps(payload, indent=2, sort_keys=True))
+        return
+    if args.csv:
+        import csv
+        writer = csv.writer(sys.stdout)
+        writer.writerow(["txHash", "chainId", "blockNumber", "status", "gasUsed", "commitment", "match"])
+        for r in results:
+            p = r.get("primary") or {}
+            writer.writerow([
+                r["txHash"],
+                p.get("chainId"),
+                p.get("blockNumber"),
+                p.get("status"),
+                p.get("gasUsed"),
+                p.get("commitment"),
+                r.get("match"),
+            ])
         return
 
     # Human-readable summary
