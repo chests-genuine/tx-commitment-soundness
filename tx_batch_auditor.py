@@ -47,6 +47,12 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_RPC_1,
         help="Primary RPC URL (default from RPC_URL env)",
     )
+        p.add_argument(
+        "--stdin",
+        action="store_true",
+        help="Read transaction hashes from stdin (one per line)",
+    )
+
     p.add_argument(
         "--rpc2",
         default=DEFAULT_RPC_2,
@@ -182,10 +188,13 @@ def main() -> None:
     args = parse_args()
 
     # Gather tx hashes
-    if args.file:
+      if args.file:
         hashes = read_hashes_from_file(args.file)
+    elif args.stdin:
+        hashes = [line.strip() for line in sys.stdin if line.strip()]
     else:
         hashes = list(args.txs)
+
 
     # Simple validation & dedup
     hashes = [h.strip() for h in hashes if h.strip()]
