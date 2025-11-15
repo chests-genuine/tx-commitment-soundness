@@ -15,6 +15,16 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 - Python 3.10 or newer
 - web3.py
 - An Ethereum RPC endpoint (Infura, Alchemy, or your own node)
+## Quickstart
+
+### 1. Install dependencies
+pip install web3
+
+### 2. Set your RPC (e.g. Infura)
+export RPC_URL="https://mainnet.infura.io/v3/YOUR_KEY"
+
+### 3. Run the checker for a transaction
+python txapp.py 0xYOUR_TX_HASH_HERE
 
 ## Install
 1) Install dependencies:
