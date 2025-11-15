@@ -1,4 +1,8 @@
 # app.py
+"""
+Simple tx-fee soundness checker for a single transaction, with optional
+cross-provider comparison using a commitment over key receipt fields.
+"""
 import os
 import sys
 import time
