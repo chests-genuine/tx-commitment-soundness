@@ -57,7 +57,9 @@ def parse_tx_hash(h: str) -> Optional[str]:
         return None
     if not h.startswith("0x"):
         h = "0x" + h
-    if len(h) != 66 or not Web3.is_hex(h):
+       if len(h) != 66:
+        return None
+    if not Web3.is_hex(h):
         return None
     return h
 
