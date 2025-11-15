@@ -9,11 +9,15 @@ def safe_rpc_call(func, *args, retries=3, delay=1):
     for attempt in range(1, retries + 1):
         try:
             return func(*args)
+        except KeyboardInterrupt:
+            raise
         except Exception as e:
+            if attempt == retries:
+                print(f"❌ RPC call failed after {retries} attempts: {e}")
+                sys.exit(2)
             print(f"⚠️  RPC call failed (attempt {attempt}/{retries}): {e}")
             time.sleep(delay)
-    print("❌ All RPC retries failed.")
-    sys.exit(2)
+
     
 # Config: set via env or edit directly
 RPC_URL = os.getenv("RPC_URL", "https://mainnet.infura.io/v3/your_api_key")
