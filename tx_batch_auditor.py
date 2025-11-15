@@ -47,6 +47,12 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_RPC_1,
         help="Primary RPC URL (default from RPC_URL env)",
     )
+        p.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit with code 1 if any commitment mismatch is found",
+    )
+
     p.add_argument(
         "--rpc2",
         default=DEFAULT_RPC_2,
@@ -226,6 +232,12 @@ def main() -> None:
         results.append(res)
 
     elapsed = round(time.time() - t0, 3)
+    if args.strict:
+        any_mismatch = any(
+            (r.get("match") is False) for r in results
+        )
+        if any_mismatch:
+            sys.exit(1)
 
     if args.json:
         payload = {
