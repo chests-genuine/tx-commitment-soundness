@@ -42,6 +42,12 @@ def parse_args() -> argparse.Namespace:
         description="Batch soundness checker for multiple Ethereum transaction receipts.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "--reverse",
+        action="store_true",
+        help="Process transaction list in reverse order",
+    )
+
     p.add_argument(
         "--rpc1",
         default=DEFAULT_RPC_1,
@@ -204,6 +210,8 @@ def main() -> None:
 
     if args.max > 0 and len(hashes) > args.max:
         hashes = hashes[: args.max]
+    if args.reverse:
+        hashes.reverse()
 
     # Connections
     if "your_api_key" in args.rpc1:
