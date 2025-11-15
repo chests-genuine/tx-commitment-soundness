@@ -130,4 +130,5 @@ def main():
     print(f"⏱️  Elapsed: {time.time() - start:.2f}s")
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
+
