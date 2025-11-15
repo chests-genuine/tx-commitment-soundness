@@ -58,6 +58,8 @@ def fetch_receipt_bundle(w3: Web3, txh: str):
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
 tx = safe_rpc_call(w3.eth.get_transaction, txh)
+    from_addr = tx["from"]
+    to_addr = tx["to"]
     except Exception as e:
         print(f"❌ Failed to fetch receipt: {e}")
         sys.exit(2)
@@ -68,6 +70,9 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     gas_used = int(rcpt.gasUsed)
     block_number = int(rcpt.blockNumber)
     return {
+                "tx_hash": txh,
+        "from": from_addr,
+        "to": to_addr,
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
         "tx_hash": txh,
