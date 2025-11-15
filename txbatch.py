@@ -246,7 +246,7 @@ def main() -> int:
             f"(chainId {secondary_chain_id})"
         )
 
-    print("\n# tx | status | chain | block | fee(ETH) | commitment | cross-check")
+       print("\n# tx | status | chain | network | block | fee(ETH) | commitment | cross-check")
 
     success_count = 0
     fail_count = 0
@@ -310,6 +310,7 @@ def main() -> int:
         print(
             f"{icon} {txh} | {status_str} | "
             f"{bundle_primary['chain_id']} | "
+            f"{bundle_primary['network']} | "
             f"{bundle_primary['block_number']} | "
             f"{fee_str} | "
             f"{bundle_primary['commitment']} | "
