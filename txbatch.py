@@ -164,6 +164,13 @@ def build_parser() -> argparse.ArgumentParser:
         description="Batch-check tx commitment soundness for multiple transactions.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "--max-fee-eth",
+        type=float,
+        default=None,
+        help="If set, flag and fail when any tx fee exceeds this (in ETH).",
+    )
+
     p.add_argument(
         "--tx",
         action="append",
@@ -272,6 +279,14 @@ def main() -> int:
             if bundle_primary["total_fee_eth"] is not None
             else "-"
         )
+        if args.max_fee_eth is not None and bundle_primary["total_fee_eth"] is not None:
+            if bundle_primary["total_fee_eth"] > args.max_fee_eth:
+                print(
+                    f"{warn_icon}fee {bundle_primary['total_fee_eth']:.6f} ETH exceeds "
+                    f"threshold {args.max_fee_eth:.6f} ETH for {txh}",
+                    file=sys.stderr,
+                )
+                fail_count += 1
 
         cross_note = "-"
         match = True
