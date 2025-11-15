@@ -39,6 +39,12 @@ def safe_rpc_call(func, *args, retries: int = 3, delay: float = 1.0):
                 raise
             print(f"⚠️  RPC call failed (attempt {attempt}/{retries}): {e}", file=sys.stderr)
             time.sleep(delay)
+        except Exception as e:
+            # Only sleep if we will retry again
+            if attempt == retries:
+                print(f"❌ RPC call failed after {retries} attempts: {e}", file=sys.stderr)
+                raise
+
 
 
 def w3_connect(url: str) -> Web3:
