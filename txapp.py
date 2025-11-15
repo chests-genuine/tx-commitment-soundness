@@ -66,8 +66,17 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
         sys.exit(2)
     status = int(rcpt.status)
     gas_used = int(rcpt.gasUsed)
+    effective_gas_price = getattr(rcpt, "effectiveGasPrice", None)
+    if effective_gas_price is None:
+        # Legacy tx or provider doesn’t expose effectiveGasPrice
+        effective_gas_price = tx.get("gasPrice")
+    total_fee_wei = gas_used * int(effective_gas_price) if effective_gas_price is not None else None
+
     block_number = int(rcpt.blockNumber)
     return {
+                "gas_used": gas_used,
+        "total_fee_eth": Web3.from_wei(total_fee_wei, "ether") if total_fee_wei is not None else None,
+        "commitment": build_commitment(chain_id, txh, block_number, status, gas_used),
         "chain_id": w3.eth.chain_id,
         "network": network_name(w3.eth.chain_id),
         "tx_hash": txh,
