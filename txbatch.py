@@ -164,6 +164,12 @@ def build_parser() -> argparse.ArgumentParser:
         description="Batch-check tx commitment soundness for multiple transactions.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "--short-hash",
+        action="store_true",
+        help="Print shortened tx hashes (0x + first 10 chars) in main output.",
+    )
+
     p.add_argument(
         "--tx",
         action="append",
@@ -187,6 +193,7 @@ def main() -> int:
     args = parser.parse_args()
 
     use_emoji = not args.no_emoji
+    short_hashes = args.short_hash
     ok_icon = "✅" if use_emoji else "OK"
     err_icon = "❌" if use_emoji else "ERR"
     warn_icon = "⚠️ " if use_emoji else "WARN: "
@@ -305,9 +312,14 @@ def main() -> int:
             except Exception as e:
                 cross_note = f"{warn_icon}error on secondary: {e}"
                 match = False
+        display_hash = txh
+        if short_hashes:
+            display_hash = txh[:12] + "…"
 
         icon = ok_icon if bundle_primary["status"] == 1 else err_icon
         print(
+             f"{icon} {display_hash} | {status_str} | "
+            f"{bundle_primary['chain_id']} | "
             f"{icon} {txh} | {status_str} | "
             f"{bundle_primary['chain_id']} | "
             f"{bundle_primary['block_number']} | "
