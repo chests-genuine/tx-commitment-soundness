@@ -228,6 +228,9 @@ def main() -> int:
 
     # Connect primary
     print(f"Connecting to primary RPC: {RPC_URL}")
+        if not RPC_URL:
+        print(f"{err_icon} RPC_URL is not set.", file=sys.stderr)
+        return 1
     w3 = w3_connect(RPC_URL)
     primary_chain_id = safe_rpc_call(lambda: w3.eth.chain_id)
     print(
