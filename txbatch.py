@@ -164,6 +164,13 @@ def build_parser() -> argparse.ArgumentParser:
         description="Batch-check tx commitment soundness for multiple transactions.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+        p.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print extra details (from/to) for each transaction.",
+    )
+
     p.add_argument(
         "--tx",
         action="append",
@@ -185,6 +192,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+    verbose = args.verbose
 
     use_emoji = not args.no_emoji
     ok_icon = "✅" if use_emoji else "OK"
@@ -308,6 +316,12 @@ def main() -> int:
 
         icon = ok_icon if bundle_primary["status"] == 1 else err_icon
         print(
+                    if verbose:
+            print(
+                f"   from={bundle_primary['from']} "
+                f"to={bundle_primary['to']}"
+            )
+
             f"{icon} {txh} | {status_str} | "
             f"{bundle_primary['chain_id']} | "
             f"{bundle_primary['block_number']} | "
