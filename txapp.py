@@ -57,10 +57,11 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
 def fetch_receipt_bundle(w3: Web3, txh: str):
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
-tx = safe_rpc_call(w3.eth.get_transaction, txh)
+        tx = safe_rpc_call(w3.eth.get_transaction, txh)
     except Exception as e:
-        print(f"❌ Failed to fetch receipt: {e}")
+        print(f"❌ Failed to fetch receipt or transaction: {e}")
         sys.exit(2)
+
     if rcpt is None:
         print("❌ Receipt not found (transaction pending or unknown).")
         sys.exit(2)
