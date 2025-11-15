@@ -174,6 +174,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--file",
         help="Path to file with one tx hash per line (use '-' for stdin).",
     )
+     p.add_argument(
+        "--quiet-errors",
+        action="store_true",
+        help="Suppress per-tx error lines (exit code still reflects errors).",
+    )
     p.add_argument(
         "--no-emoji",
         action="store_true",
@@ -187,6 +192,7 @@ def main() -> int:
     args = parser.parse_args()
 
     use_emoji = not args.no_emoji
+    quiet_errors = args.quiet_errors
     ok_icon = "✅" if use_emoji else "OK"
     err_icon = "❌" if use_emoji else "ERR"
     warn_icon = "⚠️ " if use_emoji else "WARN: "
@@ -257,10 +263,9 @@ def main() -> int:
     for txh in tx_hashes:
         try:
             bundle_primary = fetch_bundle(w3, txh)
-        except TransactionNotFound:
-            print(f"{err_icon} {txh} | not-found on primary RPC")
-            not_found_count += 1
-            continue
+              except Exception as e:
+            print(f"{err_icon} {txh} | error on primary RPC: {e}", file=sys.stderr)
+continue
         except Exception as e:
             print(f"{err_icon} {txh} | error on primary RPC: {e}", file=sys.stderr)
             fail_count += 1
