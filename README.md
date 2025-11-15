@@ -47,3 +47,11 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 - If your provider is non-archival and the tx is old, you might need a different RPC
 - This is not a zero-knowledge proof; it is a commitment primitive you could later verify inside a ZK circuit for privacy-preserving checks
 - For CI, set both RPC_URL and RPC_URL_2 to independent providers and assert that commitments match
+### CI usage example
+
+In CI (GitHub Actions, GitLab, etc.), you can run:
+
+```bash
+RPC_URL=https://mainnet.infura.io/v3/YOUR_KEY \
+RPC_URL_2=https://rpc.ankr.com/eth \
+python txapp.py 0xYOUR_TX_HASH_HERE
