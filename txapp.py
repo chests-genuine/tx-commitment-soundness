@@ -38,10 +38,14 @@ def w3_connect(url: str) -> Web3:
     return w3
 
 def parse_tx_hash(h: str) -> str:
-    if not h.startswith("0x") or len(h) != 66:
-        print("❌ Invalid transaction hash. Expected 0x + 64 hex chars.")
+    h = h.strip()
+    if not h.startswith("0x"):
+        h = "0x" + h
+    if len(h) != 66 or not Web3.is_hex(h):
+        print("❌ Invalid transaction hash. Expected 0x + 64 hex characters.")
         sys.exit(1)
     return h
+
 
 def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status: int, gas_used: int) -> str:
     # keccak(chainId[8] || txHash[32] || blockNumber[8] || status[1] || gasUsed[8])
