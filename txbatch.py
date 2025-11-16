@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Any
 
 from web3 import Web3
 from web3.exceptions import TransactionNotFound
-
+VERSION = "0.1.0"
 
 # Config: RPCs come from the environment, like txapp.py
 DEFAULT_RPC = "https://mainnet.infura.io/v3/your_api_key"
@@ -160,6 +160,12 @@ def load_hashes(args: argparse.Namespace) -> List[str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+        p.add_argument(
+        "--version",
+        action="store_true",
+        help="Print version and exit",
+    )
+
     p = argparse.ArgumentParser(
         description="Batch-check tx commitment soundness for multiple transactions.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -185,6 +191,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+    if args.version:
+        print(f"txbatch {VERSION}")
+        return 0
 
     use_emoji = not args.no_emoji
     ok_icon = "✅" if use_emoji else "OK"
