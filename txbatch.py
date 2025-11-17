@@ -170,6 +170,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=[],
         help="Transaction hash (0x...). Can be specified multiple times.",
     )
+        p.add_argument(
+        "--no-header",
+        action="store_true",
+        help="Do not print the table header line.",
+    )
+
     p.add_argument(
         "--file",
         help="Path to file with one tx hash per line (use '-' for stdin).",
@@ -185,7 +191,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
-
+no_header = args.no_header
     use_emoji = not args.no_emoji
     ok_icon = "✅" if use_emoji else "OK"
     err_icon = "❌" if use_emoji else "ERR"
@@ -246,7 +252,9 @@ def main() -> int:
             f"(chainId {secondary_chain_id})"
         )
 
-    print("\n# tx | status | chain | block | fee(ETH) | commitment | cross-check")
+        if not no_header:
+        print("\n# tx | status | chain | block | fee(ETH) | commitment | cross-check")
+
 
     success_count = 0
     fail_count = 0
