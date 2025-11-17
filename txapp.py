@@ -114,7 +114,8 @@ def main():
     primary = fetch_receipt_bundle(w3, tx_hash)
     print_bundle("PRIMARY", primary)
 
-    if RPC_URL_2:
+       if RPC_URL_2:
+        print(f"Connecting to secondary RPC: {RPC_URL_2}")
         w3b = w3_connect(RPC_URL_2)
         secondary = fetch_receipt_bundle(w3b, tx_hash)
         print_bundle("SECONDARY", secondary)
