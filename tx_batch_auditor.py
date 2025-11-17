@@ -4,8 +4,8 @@ import time
 import json
 import argparse
 from typing import List, Dict, Any, Optional
-
 from web3 import Web3
+__version__ = "0.1.0"
 
 DEFAULT_RPC_1 = os.getenv("RPC_URL", "https://mainnet.infura.io/v3/your_api_key")
 DEFAULT_RPC_2 = os.getenv("RPC_URL_2")
@@ -74,6 +74,13 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Print JSON instead of human-readable table",
     )
+        p.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show program version and exit",
+    )
+
     return p.parse_args()
 
 
