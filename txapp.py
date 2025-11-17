@@ -97,10 +97,12 @@ def print_bundle(label: str, bundle: dict):
     print(f"🧩 Soundness Commitment: {bundle['commitment']}")
 
 def main():
-    if len(sys.argv) != 2:
+       if len(sys.argv) != 2:
         print("Usage: python app.py <tx_hash>")
-        print("Example: python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print("Example:")
+        print("  RPC_URL=https://mainnet.infura.io/v3/YOUR_KEY python app.py 0xdeadbeef...")
         sys.exit(1)
+
 
     tx_hash = parse_tx_hash(sys.argv[1])
 
