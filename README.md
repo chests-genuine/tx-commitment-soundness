@@ -5,7 +5,7 @@
 This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereum transaction. It fetches the transaction receipt from an RPC endpoint and derives a commitment that binds chainId, txHash, blockNumber, status, and gasUsed. This mirrors how Aztec-style or rollup systems commit to facts so they cannot be forged without detection. Optionally, you can cross-check the same transaction against a second RPC to detect inconsistencies.
 
 ## Files
-- app.py — CLI tool that:
+- txapp.py — CLI tool that:
   - Connects to an Ethereum-compatible RPC
   - Loads the transaction receipt
   - Prints key fields and a soundness commitment
