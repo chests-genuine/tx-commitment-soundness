@@ -66,6 +66,12 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_RPC_1,
         help="Primary RPC URL (default from RPC_URL env)",
     )
+        p.add_argument(
+        "--no-color",
+        action="store_true",
+        help="Disable emojis / decorative characters in stdout",
+    )
+
     p.add_argument(
         "--rpc2",
         default=DEFAULT_RPC_2,
@@ -216,7 +222,9 @@ def main() -> None:
     # Simple validation & dedup
     hashes = [h.strip() for h in hashes if h.strip()]
     hashes = list(dict.fromkeys(hashes))  # preserve order, remove dups
-
+ emoji_link = "🔗" if not args.no_color else "[TX]"
+    emoji_ok = "✅" if not args.no_color else "[OK]"
+    emoji_fail = "❌" if not args.no_color else "[FAIL]"
     if not hashes:
         print("⚠️  No transaction hashes provided. Use --file or positional tx hashes.", file=sys.stderr)
         sys.exit(1)
@@ -301,7 +309,7 @@ def main() -> None:
     print(f"🧮 Auditing {len(results)} transaction(s) in {elapsed}s\n")
 
     for res in results:
-        print(f"🔗 {res['txHash']}")
+        print(f"{emoji_link} {res['txHash']}")
         if res["errorPrimary"]:
             print(f"   ❌ Primary error: {res['errorPrimary']}")
             continue
