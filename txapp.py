@@ -113,6 +113,9 @@ def main():
         print("⚠️  Using default RPC_URL placeholder; set RPC_URL env var for real usage.")
     primary = fetch_receipt_bundle(w3, tx_hash)
     print_bundle("PRIMARY", primary)
+        if not RPC_URL_2:
+        print("ℹ️  Set RPC_URL_2 to enable cross-provider soundness checks.")
+
 
        if RPC_URL_2:
         print(f"Connecting to secondary RPC: {RPC_URL_2}")
