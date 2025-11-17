@@ -3,6 +3,7 @@ import os
 import sys
 import time
 from web3 import Web3
+from typing import Dict, Any 
 # new lines
 def safe_rpc_call(func, *args, retries=3, delay=1):
     """Retry wrapper for transient RPC errors."""
@@ -56,7 +57,7 @@ def build_commitment(chain_id: int, tx_hash_hex: str, block_number: int, status:
     )
     return "0x" + Web3.keccak(payload).hex()
 
-def fetch_receipt_bundle(w3: Web3, txh: str):
+def fetch_receipt_bundle(w3: Web3, txh: str) -> Dict[str, Any]:
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
 tx = safe_rpc_call(w3.eth.get_transaction, txh)
