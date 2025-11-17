@@ -93,9 +93,12 @@ def print_bundle(label: str, bundle: dict):
     print(f"— {label} —")
     print(f"🌐 Network: {bundle['network']} (chainId {bundle['chain_id']})")
     print(f"🔗 Tx: {bundle['tx_hash']}")
+    print(f"👤 From: {bundle.get('from')}")
+    print(f"📥 To:   {bundle.get('to')}")
     print(f"🔢 Block: {bundle['block_number']}")
     print(f"📦 Status: {bundle['status']}  GasUsed: {bundle['gas_used']}")
     print(f"🧩 Soundness Commitment: {bundle['commitment']}")
+
 
 def main():
        if len(sys.argv) != 2:
