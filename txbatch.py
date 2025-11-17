@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Any
 from web3 import Web3
 from web3.exceptions import TransactionNotFound
 
+Bundle = Dict[str, Any]
 
 # Config: RPCs come from the environment, like txapp.py
 DEFAULT_RPC = "https://mainnet.infura.io/v3/your_api_key"
@@ -82,7 +83,7 @@ def build_commitment(
     return "0x" + Web3.keccak(payload).hex()
 
 
-def fetch_bundle(w3: Web3, txh: str) -> Dict[str, Any]:
+def fetch_bundle(w3: Web3, txh: str) -> Bundle:
     """Fetch tx + receipt and compute the commitment."""
     try:
         rcpt = safe_rpc_call(w3.eth.get_transaction_receipt, txh)
