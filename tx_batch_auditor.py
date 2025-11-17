@@ -183,6 +183,8 @@ def audit_tx(
         "errorPrimary": None,
         "errorSecondary": None,
         "timingSec": None,
+        "primaryChainId": int(w3_primary.eth.chain_id),
+        "secondaryChainId": int(w3_secondary.eth.chain_id) if w3_secondary is not None else None,
     }
 
     # Primary
