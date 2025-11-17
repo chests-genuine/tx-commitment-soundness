@@ -180,6 +180,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p.add_argument(
+        "--min-block",
+        type=int,
+        default=None,
+        help="Only process transactions with blockNumber >= this value.",
+    )
+    p.add_argument(
+        "--max-block",
+        type=int,
+        default=None,
+        help="Only process transactions with blockNumber <= this value.",
+    )
+    p.add_argument(
         "--file",
         help="Path to file with one tx hash per line (use '-' for stdin).",
     )
@@ -273,6 +285,12 @@ no_header = args.no_header
     for txh in tx_hashes:
         try:
             bundle_primary = fetch_bundle(w3, txh)
+                    bn = bundle_primary["block_number"]
+        if args.min_block is not None and bn < args.min_block:
+            continue
+        if args.max_block is not None and bn > args.max_block:
+            continue
+
         except TransactionNotFound:
             print(f"{err_icon} {txh} | not-found on primary RPC")
             not_found_count += 1
