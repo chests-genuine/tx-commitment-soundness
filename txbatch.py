@@ -356,7 +356,11 @@ no_header = args.no_header
             file=sys.stderr,
         )
         return 2 if w3b is not None else 0
-
+ if invalid_count > 0:
+        print(
+            f"{warn_icon}{invalid_count} invalid tx hash(es) were skipped.",
+            file=sys.stderr,
+        )
     # Non-zero if we had serious problems
     if fail_count > 0 or not_found_count > 0 or invalid_count > 0:
         return 1
