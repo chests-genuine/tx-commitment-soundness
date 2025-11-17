@@ -244,13 +244,14 @@ def main() -> None:
     if args.max > 0 and len(hashes) > args.max:
         hashes = hashes[: args.max]
 
-    # Connections
+     # Connections
     if "your_api_key" in args.rpc1:
         print(
             "⚠️  Primary RPC still uses placeholder 'your_api_key'. "
             "Did you configure RPC_URL?",
             file=sys.stderr,
         )
+
 
     w3_primary = connect(args.rpc1, "primary")
     w3_secondary: Optional[Web3] = None
