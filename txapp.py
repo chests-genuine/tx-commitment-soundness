@@ -16,7 +16,9 @@ def safe_rpc_call(func, *args, retries=3, delay=1):
     sys.exit(2)
     
 # Config: set via env or edit directly
-RPC_URL = os.getenv("RPC_URL", "https://mainnet.infura.io/v3/your_api_key")
+DEFAULT_RPC = "https://mainnet.infura.io/v3/your_api_key"
+RPC_URL = os.getenv("RPC_URL", DEFAULT_RPC)
+
 RPC_URL_2 = os.getenv("RPC_URL_2")  # optional second provider for cross-checks
 
 NETWORKS = {
@@ -104,6 +106,8 @@ def main():
 
     start = time.time()
     w3 = w3_connect(RPC_URL)
+        if RPC_URL == DEFAULT_RPC:
+        print("⚠️  Using default RPC_URL placeholder; set RPC_URL env var for real usage.")
     primary = fetch_receipt_bundle(w3, tx_hash)
     print_bundle("PRIMARY", primary)
 
