@@ -133,7 +133,12 @@ def main():
         else:
             print("⚠️  Inconsistency detected — check providers, tags, or re-run.")
 
-    print(f"⏱️  Elapsed: {time.time() - start:.2f}s")
+      elapsed = time.time() - start
+    if elapsed < 1:
+        print(f"⏱️  Elapsed: {elapsed * 1000:.0f}ms")
+    else:
+        print(f"⏱️  Elapsed: {elapsed:.2f}s")
+
 
 if __name__ == "__main__":
     main()
