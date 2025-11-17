@@ -25,6 +25,19 @@ This tiny repo demonstrates a Web3-flavored soundness check for a single Ethereu
 
 ## Usage
    python app.py <tx_hash>
+### Batch commitment checks
+
+Use `txbatch.py` to check multiple transactions and their commitments in one run:
+
+bash
+RPC_URL=https://mainnet.infura.io/v3/YOUR_KEY \
+python txbatch.py \
+  --tx 0xaaa... \
+  --tx 0xbbb...
+
+# Or from a file (one hash per line)
+RPC_URL=... \
+python txbatch.py --file txhashes.txt   
 
 ## Examples
    python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
