@@ -1,3 +1,20 @@
+    """
+    Compute a commitment over basic receipt fields.
+
+    Preimage layout (big-endian integers):
+        chainId[8]      uint64
+        txHash[32]      raw 32-byte tx hash
+        blockNumber[8]  uint64
+        status[1]       uint8 (0 or 1)
+        gasUsed[8]      uint64
+
+    Commitment:
+        keccak256(preimage)
+
+    Returns:
+        dict with chainId, blockNumber, status, gasUsed, and commitment (0x-hex).
+    """
+
 import os
 import sys
 import time
