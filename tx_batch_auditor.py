@@ -255,6 +255,18 @@ def main() -> None:
             "elapsedSec": elapsed,
             "results": results,
         }
+                print(
+            f"🌐 primary={payload['primary']['network']} "
+            f"(chainId {payload['primary']['chainId']})",
+            file=sys.stderr,
+        )
+        if payload["secondary"] is not None:
+            print(
+                f"🌐 secondary={payload['secondary']['network']} "
+                f"(chainId {payload['secondary']['chainId']})",
+                file=sys.stderr,
+            )
+
         print(json.dumps(payload, indent=2, sort_keys=True))
         return
 
