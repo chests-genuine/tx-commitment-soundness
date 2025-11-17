@@ -137,6 +137,9 @@ def main():
             print("🔒 Soundness confirmed across providers.")
         else:
             print("⚠️  Inconsistency detected — check providers, tags, or re-run.")
+                    if not all([same_chain, same_block, same_status, same_gas, same_commit]):
+            sys.exit(3)
+
 
       elapsed = time.time() - start
     if elapsed < 1:
