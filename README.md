@@ -65,9 +65,20 @@ python txbatch.py \
 RPC_URL=... \
 python txbatch.py --file txhashes.txt   
 
-## Examples
-   python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   RPC_URL_2=https://rpc.ankr.com/eth python app.py 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+## Example Output
+When you run the tool, you’ll see output similar to this:
+🌐 Network: Ethereum Mainnet (chainId 1)
+🔗 Tx: 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+👤 From: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+🎯 To: 0x00000000219ab540356cBB839Cbe05303d7705Fa
+🔢 Block: 18945023
+🕒 Block timestamp: 2025-11-09 14:26:13 UTC
+📦 Status: 1 GasUsed: 64231
+🧩 Soundness Commitment: 0x9cfd58c6e91e3f0fa2e2c178b02f5e8fdd58b72a4e27da9b82f442b31f6a0a9e
+⏱️ Elapsed: 2.45s
+
+If you configure two RPCs, an extra *Cross-check* section will appear showing whether results match between providers.
+
 
 ### What the script prints
 - Network name and chain ID
