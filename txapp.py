@@ -80,6 +80,9 @@ tx = safe_rpc_call(w3.eth.get_transaction, txh)
     total_fee_wei = gas_used * int(effective_gas_price) if effective_gas_price is not None else None
 
     block_number = int(rcpt.blockNumber)
+    # ✅ New lines to show block timestamp
+block = w3.eth.get_block(rcpt.blockNumber)
+print(f"🕒 Block timestamp: {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(block.timestamp))} UTC")
     return {
                 "gas_used": gas_used,
         "total_fee_eth": Web3.from_wei(total_fee_wei, "ether") if total_fee_wei is not None else None,
