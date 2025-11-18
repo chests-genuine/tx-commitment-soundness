@@ -97,6 +97,8 @@ print(f"🕒 Block timestamp: {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(bl
     }
 
 def print_bundle(label: str, bundle: dict):
+        if bundle.get("total_fee_eth") is not None:
+        print(f"💰 Total Fee: {bundle['total_fee_eth']:.6f} ETH")
     print(f"— {label} —")
     print(f"🌐 Network: {bundle['network']} (chainId {bundle['chain_id']})")
     print(f"🔗 Tx: {bundle['tx_hash']}")
